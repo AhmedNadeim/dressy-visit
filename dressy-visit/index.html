@@ -558,7 +558,7 @@
         <div class="card-body">
           <p class="branch-address">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#b8962e" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            <span id="maskan-address">Gesr Suez road, Medan Alf Maskan Street – Cairo</span>
+            <span id="maskan-address">Alf Maskan Square, directly opposite the Metro station, above Re rory store, Building No. 1116</span>
           </p>
           <div class="branch-hours">
             <div class="branch-hours-row">
@@ -607,7 +607,7 @@
         <div class="card-body">
           <p class="branch-address">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#b8962e" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            <span id="tagamoa-address">1st Settlement, Yasmin 6 – New Cairo</span>
+            <span id="tagamoa-address">1st Settlement – Yasmin 6</span>
           </p>
           <div class="branch-hours">
             <div class="branch-hours-row">
@@ -656,7 +656,7 @@
         <div class="card-body">
           <p class="branch-address">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#b8962e" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            <span id="abbas-address">Abbas Al Akkad street, Above Clarck, beside National Bank of Egypt – Nasr City</span>
+            <span id="abbas-address">Nasr City, off Abbas Al Akkad St., next to National Bank of Egypt, Al Saada Mall Building (No. 4), 4th Floor</span>
           </p>
           <div class="branch-hours">
             <div class="branch-hours-row">
@@ -813,11 +813,11 @@
         const titleEl = document.getElementById('main-title');
         const badgeEl = document.getElementById('branch-badge');
         if (branchKey) {
-          titleEl.textContent = t('Welcome to Dressy', 'مرحباً بكم في درِسِّي');
+          titleEl.textContent = t('Welcome to Dressy', 'مرحباً بكم في دريسي');
           badgeEl.textContent = branchLabel[branchKey];
           badgeEl.classList.remove('hidden');
         } else {
-          titleEl.textContent = t('Welcome to Dressy Atelier', 'مرحباً بكم في أتيليه درِسِّي');
+          titleEl.textContent = t('Welcome to Dressy Atelier', 'مرحباً بكم في أتيليه دريسي');
         }
 
         document.getElementById('subtitle').textContent =
@@ -834,14 +834,14 @@
         document.getElementById('abbas-title').textContent   = t('Abbas Branch',   'فرع عباس العقاد');
 
         document.getElementById('maskan-address').textContent =
-          t('Gesr Suez road, Medan Alf Maskan Street – Cairo',
-            'شارع جسر السويس، ميدان الألف مسكن – القاهرة');
+          t('Alf Maskan Square, directly opposite the Metro station, above Re rory store, Building No. 1116',
+            'ميدان الألف مسكن، أمام محطة المترو مباشرة، أعلى محل Re rory، عمارة رقم ١١١٦');
         document.getElementById('tagamoa-address').textContent =
-          t('1st Settlement, Yasmin 6 – New Cairo',
-            'التجمع الأول، الياسمين ٦ – القاهرة الجديدة');
+          t('1st Settlement – Yasmin 6',
+            'التجمع الأول – الياسمين ٦');
         document.getElementById('abbas-address').textContent =
-          t('Abbas Al Akkad street, Above Clarck, beside National Bank of Egypt – Nasr City',
-            'شارع عباس العقاد، أعلى محل كلارك، بجوار البنك الأهلي المصري – مدينة نصر');
+          t('Nasr City, off Abbas Al Akkad St., next to National Bank of Egypt, Al Saada Mall Building (No. 4), 4th Floor',
+            'مدينة نصر، متفرع من أول عباس العقاد، بجوار البنك الأهلي، عمارة سوق السعادة (رقم ٤)، الدور الرابع');
 
         document.getElementById('maskan-hours').textContent =
           t('Daily: 3 PM – 10 PM', 'يومياً: ٣ م – ١٠ م');
@@ -871,7 +871,7 @@
 
         document.getElementById('footer-text').textContent =
           t('© ' + new Date().getFullYear() + ' Dressy Atelier — All rights reserved.',
-            '© ' + new Date().getFullYear() + ' أتيليه درِسِّي — جميع الحقوق محفوظة');
+            '© ' + new Date().getFullYear() + ' أتيليه دريسي — جميع الحقوق محفوظة');
       }
 
       // ── Language toggle ──
