@@ -468,24 +468,30 @@
 
     /* ── Branch Hours ── */
     .branch-hours {
-      display: flex;
-      align-items: center;
-      gap: 6px;
       font-size: .83rem;
       color: var(--muted);
       margin-bottom: 14px;
-      padding: 7px 11px;
+      padding: 9px 12px;
       background: var(--gold-light);
       border-radius: 8px;
       border-left: 3px solid var(--gold);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
     }
     body.ar .branch-hours {
-      flex-direction: row-reverse;
       border-left: none;
       border-right: 3px solid var(--gold);
       text-align: right;
     }
+    .branch-hours-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    body.ar .branch-hours-row { flex-direction: row-reverse; }
     .branch-hours svg { flex-shrink: 0; }
+    .hours-closed { color: var(--rose); font-weight: 700; }
 
     /* ── Responsive ── */
     @media (max-width: 600px) {
@@ -555,8 +561,14 @@
             <span id="maskan-address">Gesr Suez road, Medan Alf Maskan Street – Cairo</span>
           </p>
           <div class="branch-hours">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#b8962e" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span id="maskan-hours">Sun: 3 PM – 10 PM</span>
+            <div class="branch-hours-row">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#b8962e" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span id="maskan-hours">Daily: 3 PM – 10 PM</span>
+            </div>
+            <div class="branch-hours-row">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#d81b60" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <span id="maskan-sunday" class="hours-closed">Sunday: Closed</span>
+            </div>
           </div>
           <iframe
             class="map-frame"
@@ -598,8 +610,14 @@
             <span id="tagamoa-address">1st Settlement, Yasmin 6 – New Cairo</span>
           </p>
           <div class="branch-hours">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#b8962e" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span id="tagamoa-hours">Sun: 2 PM – 9 PM</span>
+            <div class="branch-hours-row">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#b8962e" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span id="tagamoa-hours">Daily: 2 PM – 9 PM</span>
+            </div>
+            <div class="branch-hours-row">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#d81b60" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <span id="tagamoa-sunday" class="hours-closed">Sunday: Closed</span>
+            </div>
           </div>
           <iframe
             class="map-frame"
@@ -641,8 +659,14 @@
             <span id="abbas-address">Abbas Al Akkad street, Above Clarck, beside National Bank of Egypt – Nasr City</span>
           </p>
           <div class="branch-hours">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#b8962e" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span id="abbas-hours">Sun: 2 PM – 10 PM</span>
+            <div class="branch-hours-row">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#b8962e" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span id="abbas-hours">Daily: 2 PM – 10 PM</span>
+            </div>
+            <div class="branch-hours-row">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#d81b60" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <span id="abbas-sunday" class="hours-closed">Sunday: Closed</span>
+            </div>
           </div>
           <iframe
             class="map-frame"
@@ -820,11 +844,16 @@
             'شارع عباس العقاد، أعلى محل كلارك، بجوار البنك الأهلي المصري – مدينة نصر');
 
         document.getElementById('maskan-hours').textContent =
-          t('Sun: 3 PM – 10 PM', 'الأحد: من ٣ م – ١٠ م');
+          t('Daily: 3 PM – 10 PM', 'يومياً: ٣ م – ١٠ م');
         document.getElementById('tagamoa-hours').textContent =
-          t('Sun: 2 PM – 9 PM',  'الأحد: من ٢ م – ٩ م');
+          t('Daily: 2 PM – 9 PM',  'يومياً: ٢ م – ٩ م');
         document.getElementById('abbas-hours').textContent =
-          t('Sun: 2 PM – 10 PM', 'الأحد: من ٢ م – ١٠ م');
+          t('Daily: 2 PM – 10 PM', 'يومياً: ٢ م – ١٠ م');
+
+        var sundayText = t('Sunday: Closed', 'الأحد: إجازة');
+        document.getElementById('maskan-sunday').textContent  = sundayText;
+        document.getElementById('tagamoa-sunday').textContent = sundayText;
+        document.getElementById('abbas-sunday').textContent   = sundayText;
 
         document.getElementById('maskan-wa-btn').textContent  = t('WhatsApp – Maskan',  'واتساب – مسكن');
         document.getElementById('tagamoa-wa-btn').textContent = t('WhatsApp – Tagamoa', 'واتساب – التجمع');
