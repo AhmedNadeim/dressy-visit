@@ -1,0 +1,11 @@
+node_modules/
+.claude/
+dressy-shop/
+backend/
+frontend/
+eclipse-workspace/
+.env
+.env.*
+dist/
+build/
+*.log
