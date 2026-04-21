@@ -443,6 +443,50 @@
     .fab-fb    { background: #1877F2; }
     .fab.hidden { display: none; }
 
+    /* ── Language Toggle ── */
+    .lang-toggle {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: rgba(255,255,255,.85);
+      border: 1.5px solid var(--rose);
+      color: var(--rose);
+      font-family: 'Cairo', sans-serif;
+      font-size: .82rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+      z-index: 10;
+      backdrop-filter: blur(4px);
+    }
+    .lang-toggle:hover {
+      background: var(--rose);
+      color: var(--white);
+    }
+
+    /* ── Branch Hours ── */
+    .branch-hours {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .83rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+      padding: 7px 11px;
+      background: var(--gold-light);
+      border-radius: 8px;
+      border-left: 3px solid var(--gold);
+    }
+    body.ar .branch-hours {
+      flex-direction: row-reverse;
+      border-left: none;
+      border-right: 3px solid var(--gold);
+      text-align: right;
+    }
+    .branch-hours svg { flex-shrink: 0; }
+
     /* ── Responsive ── */
     @media (max-width: 600px) {
       .branches-grid { grid-template-columns: 1fr; }
@@ -453,6 +497,7 @@
 
   <!-- ══ HEADER ══ -->
   <header class="site-header">
+    <button id="lang-toggle" class="lang-toggle">العربية</button>
     <div class="logo-wrap">
       <img src="Logo.png" alt="Dressy Atelier" onerror="this.style.display='none'" />
     </div>
@@ -509,6 +554,10 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#b8962e" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             <span id="maskan-address">Gesr Suez road, Medan Alf Maskan Street – Cairo</span>
           </p>
+          <div class="branch-hours">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#b8962e" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span id="maskan-hours">Sun: 3 PM – 10 PM</span>
+          </div>
           <iframe
             class="map-frame"
             title="Maskan Branch Map"
@@ -548,6 +597,10 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#b8962e" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             <span id="tagamoa-address">1st Settlement, Yasmin 6 – New Cairo</span>
           </p>
+          <div class="branch-hours">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#b8962e" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span id="tagamoa-hours">Sun: 2 PM – 9 PM</span>
+          </div>
           <iframe
             class="map-frame"
             title="Tagamoa Branch Map"
@@ -587,6 +640,10 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#b8962e" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             <span id="abbas-address">Abbas Al Akkad street, Above Clarck, beside National Bank of Egypt – Nasr City</span>
           </p>
+          <div class="branch-hours">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#b8962e" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span id="abbas-hours">Sun: 2 PM – 10 PM</span>
+          </div>
           <iframe
             class="map-frame"
             title="Abbas Branch Map"
@@ -687,95 +744,120 @@
   <!-- ══ SCRIPT ══ -->
   <script>
     (function () {
-      // ── Language ──
-      const lang = navigator.language || (navigator.languages && navigator.languages[0]) || 'en';
-      const isAr = lang.startsWith('ar');
-      if (isAr) document.body.classList.add('ar');
-
-      const t = (en, ar) => isAr ? ar : en;
+      // ── Language detection: localStorage → browser ──
+      const saved = localStorage.getItem('dressy-lang');
+      const browserLang = navigator.language || (navigator.languages && navigator.languages[0]) || 'en';
+      let isAr = saved ? saved === 'ar' : browserLang.startsWith('ar');
 
       // ── Branch from URL ──
       const params = new URLSearchParams(window.location.search);
       const branch = (params.get('branch') || '').toLowerCase();
-
-      // ── Text translations ──
-      document.getElementById('ornament-text').textContent = t('ATELIER', 'أتيليه');
-
-      const branchLabel = {
-        maskan:  t('Maskan Branch', 'فرع الألف مسكن'),
-        tagamoa: t('Tagamoa Branch', 'فرع التجمع الخامس'),
-        abbas:   t('Abbas Branch', 'فرع عباس'),
-      };
       const branchKey = branch.includes('maskan') ? 'maskan'
                       : branch.includes('tagamoa') ? 'tagamoa'
                       : (branch.includes('abbas') || branch.includes('عباس')) ? 'abbas'
                       : null;
 
-      const titleEl = document.getElementById('main-title');
-      const badgeEl = document.getElementById('branch-badge');
-
-      if (branchKey) {
-        titleEl.textContent = t('Welcome to Dressy', 'مرحباً بكم في أتيليه درِسِّي');
-        badgeEl.textContent = branchLabel[branchKey];
-        badgeEl.classList.remove('hidden');
-      } else {
-        titleEl.textContent = t('Welcome to Dressy Atelier', 'مرحباً بكم في أتيليه درِسِّي');
-      }
-
-      document.getElementById('subtitle').textContent =
-        t('Discover our branches & get in touch with us',
-          'اكتشف فروعنا وتواصل معنا');
-
-      document.getElementById('feedback-btn-text').textContent =
-        t('Share Your Feedback', 'شاركنا رأيك');
-
-      document.getElementById('branches-title').textContent =
-        t('Our Branches', 'فروعنا');
-
-      document.getElementById('maskan-title').textContent   = t('Maskan Branch',  'فرع الألف مسكن');
-      document.getElementById('tagamoa-title').textContent  = t('Tagamoa Branch', 'فرع التجمع الخامس');
-      document.getElementById('abbas-title').textContent    = t('Abbas Branch',   'فرع عباس');
-
-      document.getElementById('maskan-address').textContent  =
-        t('Gesr Suez road, Medan Alf Maskan Street – Cairo',
-          'شارع جسر السويس، ميدان الألف مسكن – القاهرة');
-      document.getElementById('tagamoa-address').textContent =
-        t('1st Settlement, Yasmin 6 – New Cairo',
-          'التجمع الأول، الياسمين 6 – القاهرة الجديدة');
-      document.getElementById('abbas-address').textContent   =
-        t('Abbas Al Akkad street, Above Clarck, beside National Bank of Egypt – Nasr City',
-          'شارع عباس العقاد، أعلى محل كلارك، بجوار البنك الأهلي المصري – مدينة نصر');
-
-      document.getElementById('maskan-wa-btn').textContent  = t('WhatsApp – Maskan',  'واتساب – مسكن');
-      document.getElementById('tagamoa-wa-btn').textContent = t('WhatsApp – Tagamoa', 'واتساب – التجمع');
-      document.getElementById('abbas-wa-btn').textContent   = t('WhatsApp – Abbas',   'واتساب – عباس');
-
-      ['maskan-maps-btn','tagamoa-maps-btn','abbas-maps-btn'].forEach(id => {
-        document.getElementById(id).textContent =
-          t('Open in Google Maps', 'عرض على خرائط جوجل');
-      });
-
-      document.getElementById('contact-title').textContent =
-        t('Contact Us', 'تواصل معنا');
-
-      document.getElementById('wa-maskan-link').textContent  = t('WhatsApp – Maskan',  'واتساب – مسكن');
-      document.getElementById('wa-tagamoa-link').textContent = t('WhatsApp – Tagamoa', 'واتساب – التجمع');
-      document.getElementById('wa-abbas-link').textContent   = t('WhatsApp – Abbas',   'واتساب – عباس');
-
-      document.getElementById('footer-text').textContent =
-        t('© ' + new Date().getFullYear() + ' Dressy Atelier — All rights reserved.',
-          '© ' + new Date().getFullYear() + ' أتيليه درِسِّي — جميع الحقوق محفوظة');
-
-      // ── Highlight card & floating WhatsApp ──
       const waNumbers = {
         maskan:  'https://wa.me/+201110567539',
         tagamoa: 'https://wa.me/+201151424618',
         abbas:   'https://wa.me/+201038278448',
       };
 
+      function t(en, ar) { return isAr ? ar : en; }
+
+      function applyLang() {
+        // body class & dir
+        if (isAr) {
+          document.body.classList.add('ar');
+          document.documentElement.lang = 'ar';
+        } else {
+          document.body.classList.remove('ar');
+          document.documentElement.lang = 'en';
+        }
+
+        // toggle button label shows the OTHER language
+        document.getElementById('lang-toggle').textContent = isAr ? 'English' : 'العربية';
+
+        document.getElementById('ornament-text').textContent = t('ATELIER', 'أتيليه');
+
+        const branchLabel = {
+          maskan:  t('Maskan Branch',  'فرع الألف مسكن'),
+          tagamoa: t('Tagamoa Branch', 'فرع التجمع الأول'),
+          abbas:   t('Abbas Branch',   'فرع عباس العقاد'),
+        };
+
+        const titleEl = document.getElementById('main-title');
+        const badgeEl = document.getElementById('branch-badge');
+        if (branchKey) {
+          titleEl.textContent = t('Welcome to Dressy', 'مرحباً بكم في درِسِّي');
+          badgeEl.textContent = branchLabel[branchKey];
+          badgeEl.classList.remove('hidden');
+        } else {
+          titleEl.textContent = t('Welcome to Dressy Atelier', 'مرحباً بكم في أتيليه درِسِّي');
+        }
+
+        document.getElementById('subtitle').textContent =
+          t('Discover our branches & get in touch with us', 'اكتشف فروعنا وتواصل معنا');
+
+        document.getElementById('feedback-btn-text').textContent =
+          t('Share Your Feedback', 'شاركنا رأيك');
+
+        document.getElementById('branches-title').textContent =
+          t('Our Branches', 'فروعنا');
+
+        document.getElementById('maskan-title').textContent  = t('Maskan Branch',  'فرع الألف مسكن');
+        document.getElementById('tagamoa-title').textContent = t('Tagamoa Branch', 'فرع التجمع الأول');
+        document.getElementById('abbas-title').textContent   = t('Abbas Branch',   'فرع عباس العقاد');
+
+        document.getElementById('maskan-address').textContent =
+          t('Gesr Suez road, Medan Alf Maskan Street – Cairo',
+            'شارع جسر السويس، ميدان الألف مسكن – القاهرة');
+        document.getElementById('tagamoa-address').textContent =
+          t('1st Settlement, Yasmin 6 – New Cairo',
+            'التجمع الأول، الياسمين ٦ – القاهرة الجديدة');
+        document.getElementById('abbas-address').textContent =
+          t('Abbas Al Akkad street, Above Clarck, beside National Bank of Egypt – Nasr City',
+            'شارع عباس العقاد، أعلى محل كلارك، بجوار البنك الأهلي المصري – مدينة نصر');
+
+        document.getElementById('maskan-hours').textContent =
+          t('Sun: 3 PM – 10 PM', 'الأحد: من ٣ م – ١٠ م');
+        document.getElementById('tagamoa-hours').textContent =
+          t('Sun: 2 PM – 9 PM',  'الأحد: من ٢ م – ٩ م');
+        document.getElementById('abbas-hours').textContent =
+          t('Sun: 2 PM – 10 PM', 'الأحد: من ٢ م – ١٠ م');
+
+        document.getElementById('maskan-wa-btn').textContent  = t('WhatsApp – Maskan',  'واتساب – مسكن');
+        document.getElementById('tagamoa-wa-btn').textContent = t('WhatsApp – Tagamoa', 'واتساب – التجمع');
+        document.getElementById('abbas-wa-btn').textContent   = t('WhatsApp – Abbas',   'واتساب – عباس');
+
+        ['maskan-maps-btn','tagamoa-maps-btn','abbas-maps-btn'].forEach(function(id) {
+          document.getElementById(id).textContent = t('Open in Google Maps', 'عرض على خرائط جوجل');
+        });
+
+        document.getElementById('contact-title').textContent = t('Contact Us', 'تواصل معنا');
+
+        document.getElementById('wa-maskan-link').textContent  = t('WhatsApp – Maskan',  'واتساب – مسكن');
+        document.getElementById('wa-tagamoa-link').textContent = t('WhatsApp – Tagamoa', 'واتساب – التجمع');
+        document.getElementById('wa-abbas-link').textContent   = t('WhatsApp – Abbas',   'واتساب – عباس');
+
+        document.getElementById('footer-text').textContent =
+          t('© ' + new Date().getFullYear() + ' Dressy Atelier — All rights reserved.',
+            '© ' + new Date().getFullYear() + ' أتيليه درِسِّي — جميع الحقوق محفوظة');
+      }
+
+      // ── Language toggle ──
+      document.getElementById('lang-toggle').addEventListener('click', function () {
+        isAr = !isAr;
+        localStorage.setItem('dressy-lang', isAr ? 'ar' : 'en');
+        applyLang();
+      });
+
+      // ── Initial render ──
+      applyLang();
+
+      // ── Highlight card & floating WhatsApp ──
       if (branchKey) {
         document.getElementById(branchKey + '-card').classList.add('highlighted');
-
         const fabWa = document.getElementById('fab-wa');
         fabWa.href = waNumbers[branchKey];
         fabWa.classList.remove('hidden');
