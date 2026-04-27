@@ -1,0 +1,117 @@
+/* Swiper CSS — must come before @tailwind directives */
+@import 'swiper/css';
+@import 'swiper/css/pagination';
+@import 'swiper/css/navigation';
+@import 'swiper/css/effect-fade';
+@import 'swiper/css/thumbs';
+@import 'swiper/css/free-mode';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+    background: #FDF8F2;
+    color: #1A0A0A;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  [dir="rtl"] body,
+  [dir="rtl"] * {
+    font-family: 'Cairo', sans-serif;
+  }
+
+  #root {
+    width: 100%;
+    min-height: 100svh;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-8 py-3 bg-rose text-white font-semibold rounded-full
+           shadow-lg hover:bg-rose-dark transition-all duration-300 hover:scale-105 hover:shadow-xl;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-8 py-3 border-2 border-rose text-rose font-semibold
+           rounded-full hover:bg-rose hover:text-white transition-all duration-300 hover:scale-105;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center gap-2 px-8 py-3 bg-gold text-white font-semibold rounded-full
+           shadow-lg hover:bg-gold-dark transition-all duration-300 hover:scale-105 hover:shadow-xl;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-display font-bold text-ink text-center mb-2;
+  }
+
+  .section-subtitle {
+    @apply text-center text-ink-muted mb-12 text-lg;
+  }
+
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-md border border-white/50 rounded-2xl shadow-lg;
+  }
+
+  .dress-card {
+    @apply bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer
+           hover:shadow-2xl transition-all duration-500 hover:-translate-y-2;
+  }
+
+  .tag {
+    @apply inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide;
+  }
+}
+
+/* Swiper custom styles */
+.swiper-pagination-bullet {
+  background: white !important;
+  opacity: 0.6 !important;
+  width: 10px !important;
+  height: 10px !important;
+}
+.swiper-pagination-bullet-active {
+  background: #C9A84C !important;
+  opacity: 1 !important;
+  width: 28px !important;
+  border-radius: 5px !important;
+}
+.swiper-button-next,
+.swiper-button-prev {
+  color: white !important;
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 1.2rem !important;
+  font-weight: 900 !important;
+}
+
+/* RTL flips */
+[dir="rtl"] .swiper-button-next { left: 10px; right: auto; }
+[dir="rtl"] .swiper-button-prev { right: 10px; left: auto; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #FDF8F2; }
+::-webkit-scrollbar-thumb { background: #C2185B55; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #C2185B; }
+
+/* Page transition */
+.page-enter { opacity: 0; transform: translateY(16px); }
+.page-enter-active { opacity: 1; transform: translateY(0); transition: all 0.4s ease; }
+
+/* Hero slider progress bar fill (used inline via animation property) */
+@keyframes progressFill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}

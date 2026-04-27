@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(ls /mnt/)",
+      "Read(//c//**)",
+      "Bash(npx tsc *)",
+      "Bash(python -c ' *)",
+      "Bash(python3 -c ' *)",
+      "Bash(where py *)",
+      "Bash(py --version)",
+      "Read(//c/Users/ahmed/AppData/Local/Programs/**)",
+      "Bash(ls /c/Python*)",
+      "Read(//c/Users/ahmed/**)",
+      "Bash(node -e ' *)",
+      "Bash(npm list *)",
+      "Bash(xargs cat *)"
+    ]
+  }
+}

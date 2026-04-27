@@ -1,11 +1,26 @@
-node_modules/
+# ── Claude ────────────────────────────────────────────────────────────────────
 .claude/
-dressy-shop/
-backend/
+
+# ── Frontend (dressy-shop) ────────────────────────────────────────────────────
+dressy-shop/node_modules/
+dressy-shop/dist/
+dressy-shop/.env
+dressy-shop/.env.*
+dressy-shop/*.local
+
+# ── Backend (Spring Boot) ─────────────────────────────────────────────────────
+backend/target/
+backend/.mvn/
+backend/*.log
+
+# ── Other frontends (not in use) ─────────────────────────────────────────────
 frontend/
+dressy-visit/
 eclipse-workspace/
+
+# ── General ───────────────────────────────────────────────────────────────────
 .env
 .env.*
-dist/
-build/
 *.log
+.DS_Store
+Thumbs.db

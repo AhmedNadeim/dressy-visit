@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<item key="replaceBarOpen" value="false"/>
+	<list key="searchhistory">
+		<item value="isCurrentMonth"/>
+		<item value="tag"/>
+		<item value="DRY_RUN"/>
+		<item value="format"/>
+		<item value="createReservation"/>
+		<item value="send"/>
+		<item value="EnumSet.of(ReservationStatus.OUT, ReservationStatus.COMPLETED)"/>
+		<item value="findByDress_Branch_IdAndReservationDateBetweenAndStatusIn"/>
+		<item value="findByDress_Branch_IdAndReservation"/>
+		<item value="double originalPrice"/>
+		<item value="r.setStatus(newStatus)"/>
+		<item value="statu"/>
+		<item value="stat"/>
+		<item value="wha"/>
+		<item value="code"/>
+	</list>
+</section>
